@@ -7,6 +7,7 @@ const Button = forwardRef(({
   size = "md", 
   children, 
   disabled,
+  asChild,
   ...props 
 }, ref) => {
   const baseStyles = "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -25,6 +26,17 @@ const Button = forwardRef(({
     icon: "h-11 w-11"
   }
   
+  // Filter out React-specific props that shouldn't be passed to DOM
+  const { 
+    onAddToCart,
+    onQuickView, 
+    onUpdateQuantity,
+    onRemove,
+    onFilterChange,
+    onClearFilters,
+    ...domProps 
+  } = props
+  
   return (
     <button
       className={cn(
@@ -35,7 +47,7 @@ const Button = forwardRef(({
       )}
       ref={ref}
       disabled={disabled}
-      {...props}
+      {...domProps}
     >
       {children}
     </button>
